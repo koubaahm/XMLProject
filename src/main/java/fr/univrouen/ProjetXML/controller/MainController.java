@@ -15,10 +15,10 @@ public class MainController {
 
     @GetMapping("/acceuil")
     public String home(Model model) {
-        model.addAttribute("projectName", "Nom du Projet");
+        model.addAttribute("projectName", "Projet XML");
         model.addAttribute("version", "1.0.0");
-        model.addAttribute("teamMembers", new String[]{"Nom & Prénom 1", "Nom & Prénom 2", "Nom & Prénom 3"});
-        model.addAttribute("universityLogo", "/images/logo_rouen.png"); // Assurez-vous que le chemin vers le logo est correct
+        model.addAttribute("teamMembers", new String[]{"Koubaa & Ahmed", "Ait Hmadouch & Rania"});
+        model.addAttribute("universityLogo", "/images/logo-universite-de-rouen-normandie.png");
         return "acceuil";
     }
 }

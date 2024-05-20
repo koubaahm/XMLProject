@@ -35,7 +35,7 @@ public class AuthenticationController {
     public RedirectView register(@RequestParam String fullName, @RequestParam String email, @RequestParam String password) {
         RegisterUserDto registerUserDto = new RegisterUserDto(fullName, email, password);
         User registeredUser = authenticationService.signup(registerUserDto);
-        String redirectUrl = "/cv24/resume";
+        String redirectUrl = "/acceuil";
         return new RedirectView(redirectUrl);
     }
 
@@ -61,7 +61,7 @@ public class AuthenticationController {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         // Générer le token JWT et configurer la réponse de redirection
         String jwtToken = jwtService.generateToken(authenticatedUser);
-        String redirectUrl = "/cv24/resume";
+        String redirectUrl = "/acceuil";
         return new RedirectView(redirectUrl);
     }
 
