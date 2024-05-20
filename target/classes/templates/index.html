@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- Tableau de bord -->
+<div class="dashboard-nav">
+    <h2>Welcome to Your Dashboard</h2>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <!-- Ajoutez d'autres liens de navigation au besoin -->
+    </ul>
+</div>
+
+<!-- Formulaire de connexion -->
+<h1>Login</h1>
+<form action="#" th:action="@{/auth/login}" method="post">
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
+<p>Don't have an account? <a th:href="@{/auth/signup}">Sign up here</a></p>
+
+<!-- Ajoutez vos scripts JavaScript dynamiques ici -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Attend que le DOM soit chargé avant de manipuler les éléments
+
+        // Sélectionne le bouton de soumission du formulaire
+        var submitButton = document.querySelector('button[type="submit"]');
+
+        // Ajoute un écouteur d'événements pour le clic sur le bouton de soumission
+        submitButton.addEventListener('click', function(event) {
+            // Empêche le comportement par défaut de l'événement (l'envoi du formulaire)
+            event.preventDefault();
+
+            // Affiche un message dans la console
+            console.log('Submit button clicked!');
+
+            // Validation du formulaire
+            var emailInput = document.getElementById('email');
+            var passwordInput = document.getElementById('password');
+
+            if (!emailInput.value || !passwordInput.value) {
+                alert('Please enter both email and password.');
+                return;
+            }
+
+            // Envoi des données via AJAX (simulation ici)
+            var formData = new FormData();
+            formData.append('email', emailInput.value);
+            formData.append('password', passwordInput.value);
+
+            // Ici, vous pouvez utiliser fetch() ou XMLHttpRequest pour envoyer les données au serveur
+
+            // Redirection vers une autre page après une courte pause (simulation ici)
+            setTimeout(function() {
+                window.location.href = '/cv/all'; // Remplacez '/dashboard' par l'URL de votre tableau de bord
+            }, 2000); // Redirige après 2 secondes (2000 millisecondes)
+        });
+    });
+</script>
+</body>
+</html>

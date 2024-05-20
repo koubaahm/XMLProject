@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CV Detail</title>
+    <link rel="stylesheet" type="text/css" th:href="@{cv24.css}" />
+</head>
+<body class="bg-gray-100 p-4"> <!-- Ajoutez les classes Tailwind ici -->
+<!-- Utilisation de th:utext pour inclure le contenu HTML dynamique -->
+<div th:utext="${cvHtml}">CV Content</div>
+
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des CVs</title>
+    <!-- Inclusion de Bootstrap pour le design responsive et attractif -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Styles pour le fond noir et l'approche moderne -->
+    <style>
+        body {
+            background-color: #121212; /* Couleur de fond sombre */
+            color: white; /* Couleur du texte */
+        }
+
+        .table {
+            background-color: #1e1e1e; /* Couleur de fond sombre pour le tableau */
+            color: white; /* Couleur du texte dans le tableau */
+            border-radius: 10px; /* Coins arrondis pour le tableau */
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1); /* Ombre légère pour le tableau */
+        }
+        .table th, .table td {
+            border-top: none; /* Suppression de la bordure supérieure des cellules */
+            border-color: #333; /* Couleur de la bordure des cellules */
+        }
+    </style>
+</head>
+<body>
+<div th:replace="fragments :: navbar(loggedIn=true)"></div>
+
+<!-- Espacement supplémentaire -->
+<div style="height: 70px;"></div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-4 text-center">Liste des CVs</h1>
+            <!-- Formulaire pour ajouter un CV -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8 mb-3">
+                    <form action="/cv" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" accept=".xml" required>
+                        <button id="ajouterCV" type="submit" class="btn btn-success">Ajouter CV</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Tableau pour afficher la liste des CVs -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID CV</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Actions</th> <!-- Ajout de la colonne pour les boutons -->
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="cv : ${CV24}">
+                    <td th:text="${cv.id}"></td>
+                    <td th:text="${cv.identite.nom}"></td>
+                    <td th:text="${cv.identite.prenom}"></td>
+                    <td>
+                        <!-- Bouton pour afficher les détails du CV -->
+                        <a th:href="@{'/cv/' + ${cv.id}}" class="btn btn-primary btn-sm">Détails</a>
+                        <!-- Bouton pour supprimer le CV -->
+                        <button type="button" class="btn btn-danger btn-sm" th:onclick="'deleteCV(' + ${cv.id} + ')'">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts de Bootstrap pour les composants interactifs (facultatif) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script th:inline="javascript">
+    function deleteCV(cvId) {
+        console.log('ID du CV à supprimer:', cvId);
+        if (confirm("Êtes-vous sûr de vouloir supprimer ce CV ?")) {
+            fetch(`/cv/${cvId}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('CV supprimé avec succès !');
+                        window.location.reload(); // Actualiser la page après la suppression
+                    } else {
+                        alert('Erreur lors de la suppression du CV.');
+                    }
+                })
+                .catch(error => console.error('Erreur:', error));
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêcher l'envoi du formulaire par défaut
+            alert('CV ajouté avec succès !');
+            this.submit(); // Envoyer le formulaire après l'affichage de l'alerte
+        });
+    });
+</script>
+</body>
+</html>

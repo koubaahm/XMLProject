@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Inclure le lien vers le fichier CSS de Bootstrap -->
+    <link th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css}" rel="stylesheet">
+
+    <style>
+        /* Dégradé pour la barre de navigation */
+        .navbar-custom {
+            background: linear-gradient(to bottom right, #007bff, #00bfff) !important;
+        }
+
+        /* Couleur de la barre de navigation en mode sombre */
+        @media (prefers-color-scheme: dark) {
+            .navbar-custom {
+                background: white !important; /* Fond blanc */
+                color: black !important; /* Texte noir */
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Fragment pour la barre de navigation -->
+<th:block th:fragment="navbar">
+    <th:block th:fragment="navbar(loggedIn)">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom">
+            <div class="container">
+                <a class="navbar-brand" href="#">Projet XML</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <form class="d-flex" th:if="${loggedIn}">
+                    <input class="form-control me-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <ul class="navbar-nav ml-auto"> <!-- Ajoutez la classe ml-auto ici -->
+                    <li class="nav-item" th:if="${loggedIn}">
+                        <a class="nav-link" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </th:block>
+</th:block>
+
+<!-- Bootstrap JS -->
+<script th:src="@{https://code.jquery.com/jquery-3.5.1.slim.min.js}"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js}"></script>
+<script>
+    // Appliquer le dégradé après le chargement de la page
+    window.onload = function() {
+        document.querySelector('.navbar-custom').style.background = 'linear-gradient(to bottom right, #007bff, #00bfff)';
+    }
+</script>
+</body>
+</html>
