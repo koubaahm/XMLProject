@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Page d'Accueil</title>
+
+</head>
+<body>
+<h1 th:text="${projectName}">Nom du Projet</h1>
+<p>Version: <span th:text="${version}">1.0.0</span></p>
+<h2>Équipe</h2>
+<ul>
+    <li th:each="member : ${teamMembers}" th:text="${member}">Nom & Prénom</li>
+</ul>
+<img th:src="${universityLogo}" alt="Logo de l'Université de Rouen"/>
+</body>
+</html>

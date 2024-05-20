@@ -38,7 +38,7 @@
             <!-- Formulaire pour ajouter un CV -->
             <div class="row justify-content-center">
                 <div class="col-lg-8 mb-3">
-                    <form action="/cv" method="post" enctype="multipart/form-data">
+                    <form action="/cv24" method="post" enctype="multipart/form-data">
                         <input type="file" name="file" accept=".xml" required>
                         <button id="ajouterCV" type="submit" class="btn btn-success">Ajouter CV</button>
                     </form>
@@ -61,9 +61,9 @@
                     <td th:text="${cv.identite.prenom}"></td>
                     <td>
                         <!-- Bouton pour afficher les détails du CV -->
-                        <a th:href="@{'/cv/' + ${cv.id}}" class="btn btn-primary btn-sm">Détails</a>
+                        <a th:href="@{'/cv24/' + ${cv.id}}" class="btn btn-primary btn-sm">Détails</a>
                         <!-- Bouton pour supprimer le CV -->
-                        <button type="button" class="btn btn-danger btn-sm" th:onclick="'deleteCV(' + ${cv.id} + ')'">Supprimer</button>
+                        <button type="button" class="btn btn-danger btn-sm" th:onclick="'deleteCvById(' + ${cv.id} + ')'">Supprimer</button>
                     </td>
                 </tr>
                 </tbody>
@@ -78,10 +78,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script th:inline="javascript">
-    function deleteCV(cvId) {
+    function deleteCvById(cvId) {
         console.log('ID du CV à supprimer:', cvId);
         if (confirm("Êtes-vous sûr de vouloir supprimer ce CV ?")) {
-            fetch(`/cv/${cvId}`, {
+            fetch(`/cv24/${cvId}`, {
                 method: 'DELETE'
             })
                 .then(response => {
